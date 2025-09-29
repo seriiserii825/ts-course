@@ -74,7 +74,6 @@ const routes: RouteRecord[] = [
   },
 ];
 
-
 function advancedFilter<Obj extends object, Key extends keyof Obj, Val extends Obj[Key]>(
   prop: Key,
   value: Val
@@ -82,8 +81,11 @@ function advancedFilter<Obj extends object, Key extends keyof Obj, Val extends O
   return (item: Obj): item is Extract<Obj, { [K in Key]: Val }> => item[prop] == value;
 }
 
-const users_filtered = users.filter(advancedFilter("type", "manager" as const));
+const USER_TYPES = {
+  ADMIN: "admin",
+  MANAGER: "manager",
+  CLIENT: "client",
+} as const;
+
+const users_filtered = users.filter(advancedFilter("type", USER_TYPES.CLIENT));
 const routes_filtered = routes.filter(advancedFilter("type", "component" as const));
-
-
-

@@ -28,7 +28,7 @@ export default function secondHomework() {
           error: `Ошибка по адресу ${url}, статус ${response.status}`,
         };
       }
-      const data = (await response.json()) as T;
+      const data = (await response.json());
       return { res: true, data };
     } catch (err: unknown) {
       // корректно работаем с unknown
@@ -41,7 +41,11 @@ export default function secondHomework() {
 
     if (result.res) {
       // здесь result: TSuccess<TProduct[]>
-      console.log(result.data, "data");
+      const products = result.data;
+      products.forEach((p) => {
+        const tile = p.title;
+        const price = p.price;
+      });
     } else {
       // здесь result: TError
       console.error(result.error, "error");
