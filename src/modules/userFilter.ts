@@ -31,7 +31,11 @@ export default function typeGuards() {
 
   const users = loadUser();
 
-  users.filter(userFilter("client")).map((user) => user.roles);
+  const clients = users.filter(userFilterSimple("manager")).map((user) => user.roles);
+
+  function userFilterSimple(expected_type: TUser["type"]) {
+    return (u: TUser) => u.type === expected_type;
+  }
 
   function userFilter<T extends TUser["type"]>(expected_type: T) {
     return (u: TUser): u is Extract<TUser, { type: T }> => u.type === expected_type;
