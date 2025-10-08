@@ -1,89 +1,39 @@
-export default {};
-type TBaseUser = {
-  id: number;
-  name: string;
+type Circle = {
+  radius: number;
+  kind: "circle";
 };
-export type TAdminUser = TBaseUser & {
-  type: "admin";
-  accessLevel: number;
+type Square = {
+  x: number;
+  kind: "square";
 };
-
-export type TManagerUser = TBaseUser & {
-  type: "manager";
-  accessLevel: number;
-  roles: string[];
+type Triangle = {
+  x: number;
+  y: number;
+  kind: "triangle";
 };
-
-export type TClientUser = TBaseUser & {
-  type: "client";
+type Rectangle = {
+  x: number;
+  y: number;
+  kind: "rectangle";
 };
+type Shape = Circle | Triangle | Square | Rectangle;
 
-type TUser = TAdminUser | TManagerUser | TClientUser;
-
-function loadUser(): TUser[] {
-  return [
-    { type: "manager", id: 1, name: "Alice", accessLevel: 5, roles: ["editor", "viewer"] },
-    { type: "admin", id: 2, name: "Mark", accessLevel: 5 },
-    { type: "client", id: 3, name: "Toby" },
-    { type: "manager", id: 4, name: "Beatrice", accessLevel: 3, roles: ["editor"] },
-  ];
+function area(shape: Shape) {
+  switch (shape.kind) {
+    case "circle": // Круга
+      return Math.PI * shape.radius * shape.radius;
+    case "triangle": // Треугольник
+      return (shape.x * shape.y) / 2;
+    case "square": // Квадрат
+      return shape.x * shape.x;
+    case "rectangle": // Прямоугольник
+      return shape.x * shape.y;
+    default: // Прямоугольник
+      assertNever(shape);
+  }
 }
 
-const users = loadUser();
-
-type Component = () => string;
-
-type RouteRecordBase = {
-  path: string;
-};
-
-type RouteRecordComponent = RouteRecordBase & {
-  type: "component";
-  component: Component;
-  children?: RouteRecord[];
-};
-type RouteRecordRedirect = RouteRecordBase & {
-  type: "redirect";
-  redirect: string;
-};
-
-type RouteRecord = RouteRecordRedirect | RouteRecordComponent;
-
-const routes: RouteRecord[] = [
-  {
-    type: "component",
-    path: "/",
-    component: () => "Home Page",
-  },
-  {
-    type: "redirect",
-    path: "/about",
-    redirect: "/info",
-  },
-  {
-    type: "component",
-    path: "/products",
-    component: () => "Products Page",
-    children: [
-      {
-        type: "component",
-        path: "electronics",
-        component: () => "Electronics Page",
-      },
-    ],
-  },
-];
-
-
-function advancedFilter<Obj extends object, Key extends keyof Obj, Val extends Obj[Key]>(
-  prop: Key,
-  value: Val
-) {
-  return (item: Obj): item is Extract<Obj, { [K in Key]: Val }> => item[prop] == value;
+function assertNever(value: never) {
+  console.error("Unknown value", value);
+  throw Error("Not possible");
 }
-
-const users_filtered = users.filter(advancedFilter("type", "manager" as const));
-const routes_filtered = routes.filter(advancedFilter("type", "component" as const));
-
-
-
