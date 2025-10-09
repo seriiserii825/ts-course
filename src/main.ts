@@ -1,39 +1,52 @@
-type Circle = {
-  radius: number;
-  kind: "circle";
-};
-type Square = {
-  x: number;
-  kind: "square";
-};
-type Triangle = {
-  x: number;
-  y: number;
-  kind: "triangle";
-};
-type Rectangle = {
-  x: number;
-  y: number;
-  kind: "rectangle";
-};
-type Shape = Circle | Triangle | Square | Rectangle;
+import { z } from "zod";
 
-function area(shape: Shape) {
-  switch (shape.kind) {
-    case "circle": // Круга
-      return Math.PI * shape.radius * shape.radius;
-    case "triangle": // Треугольник
-      return (shape.x * shape.y) / 2;
-    case "square": // Квадрат
-      return shape.x * shape.x;
-    case "rectangle": // Прямоугольник
-      return shape.x * shape.y;
-    default: // Прямоугольник
-      assertNever(shape);
+// Валидная модель того, что мы хотим получить
+export const PersonSchema = z.object({
+  name: z.string(),
+  age: z.number(),
+});
+
+// Тип берём из схемы — всегда синхронен с валидацией
+export type Person = z.infer<typeof PersonSchema>;
+
+
+async function fetchJSON(url: string): Promise<unknown> {
+  const res = await fetch(url);
+
+  // базовые проверки сети/статуса
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status} for ${url}`);
   }
+  // необязательно, но полезно: проверим тип контента
+  const ct = res.headers.get("content-type") || "";
+  if (!ct.includes("application/json")) {
+    throw new Error(`Expected JSON, got ${ct}`);
+  }
+  return res.json(); // <- unknown, не any
 }
 
-function assertNever(value: never) {
-  console.error("Unknown value", value);
-  throw Error("Not possible");
+/**
+ * Безопасный fetch с проверкой схемой.
+ * Если сервер "сломал контракт", сразу бросит ошибку.
+ */
+export async function fetchWithSchema<T>(
+  url: string,
+  schema: z.ZodType<T>
+): Promise<T> {
+  const data = await fetchJSON(url);
+  // Бросит ZodError, если форма данных не совпадает
+  return schema.parse(data);
 }
+
+
+const PeopleSchema = z.array(PersonSchema);
+
+export async function getPeople(): Promise<Person[]> {
+  return fetchWithSchema<Person[]>("/api/people", PeopleSchema);
+}
+
+(async () => {
+  const ppl = await getPeople(); // <- гарантированно Person[]
+  // здесь уже полноценный тип, автодополнение и проверки
+  console.log(ppl[0].name.toUpperCase());
+})();
