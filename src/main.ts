@@ -1,31 +1,13 @@
-// type ContentType = "post" | "page" | "product";
-// type ContentType = "post" | "page" | "product" | string;
-type ContentType = "post" | "page" | "product" | string & {};
+type TAccountNumber = number & { _brand: "TAccountNumber" };
+type TCredits = number & { _brand: "TCredits" };
 
-type PostRecord = {
-  id: number;
-  title: string;
-};
+const balance = 10000 as TCredits;
+const amount = 2000 as TCredits;
+const account_number  = 1234567890 as TAccountNumber;
 
-function getRecords(type: ContentType): Record<ContentType, PostRecord[]> {
-  return {
-    post: [
-      { id: 1, title: "Post 1" },
-      { id: 2, title: "Post 2" },
-    ],
-    page: [
-      { id: 1, title: "Page 1" },
-      { id: 2, title: "Page 2" },
-    ],
-    product: [
-      { id: 1, title: "Product 1" },
-      { id: 2, title: "Product 2" },
-    ],
-    test: [
-      { id: 1, title: "Product 1" },
-      { id: 2, title: "Product 2" },
-    ],
-  };
+function increase(balance: TCredits, amount: TCredits): TCredits {
+  return balance + amount;
 }
 
-const my_records = getRecords("test");
+const newBalance = increase(balance, amount);
+const secondBalance = increase(newBalance, account_number);
