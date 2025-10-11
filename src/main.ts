@@ -1,13 +1,53 @@
-type TAccountNumber = number & { _brand: "TAccountNumber" };
-type TCredits = number & { _brand: "TCredits" };
+type FilterRule = {
+  field: string;
+  operator: string;
+  value: any;
+};
+type CombinatorialFilter = {
+  combinator: "and" | "or";
+  rules: FilterRule[];
+};
+type ChainedFilter = {
+  rules: (CombinatorialFilter | FilterRule)[];
+};
+type Filter = CombinatorialFilter | ChainedFilter;
 
-const balance = 10000 as TCredits;
-const amount = 2000 as TCredits;
-const account_number  = 1234567890 as TAccountNumber;
+function reset<F extends Filter>(filter: F): F {
+  const result = { ...filter };
+  result.rules = [];
 
-function increase(balance: TCredits, amount: TCredits): TCredits {
-  return balance + amount;
+  if ("combinator" in result) {
+    // фильтр — CombinatorialFilter
+    result.combinator = "and";
+  }
+  // фильтр — ChainedFilter
+  return result;
 }
+const filter: CombinatorialFilter = { rules: [], combinator: "or" };
+const resetFilter = reset(filter); // resetFilter — это Filter
 
-const newBalance = increase(balance, amount);
-const secondBalance = increase(newBalance, account_number);
+
+type BaseTreeItem = {
+  id: string;
+  children: BaseTreeItem[];
+};
+type TreeItem<Children extends TreeItem = BaseTreeItem> = {
+  id: string;
+  children: Children[];
+  collapsed?: boolean;
+};
+function attachToRoot<T extends TreeItem>(children: T[]): TreeItem<T> {
+  return {
+    id: "root",
+    children,
+  };
+}
+const root = attachToRoot([
+  {
+    id: "child",
+    children: [],
+    collapsed: false,
+    marked: true,
+  },
+]);
+
