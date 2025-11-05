@@ -1,3 +1,3 @@
-import warehouseReport from "./modules/26.index";
+import homeworkMedia from "./modules/34.index";
 
-warehouseReport();
+homeworkMedia();
