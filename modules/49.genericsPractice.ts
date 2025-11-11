@@ -1,24 +1,24 @@
 export default function genericsPractice() {
   // Создать Generic-интерфейс PlayerData, который подходил бы для создания таких объектов:
-  interface PlayerData<TGame, THours, TServer> {
+  interface PlayerData<TGame extends number | string, THours> {
     game: TGame;
     hours: THours;
-    server: TServer;
+    server: string;
   }
 
-  const player1: PlayerData<string, number, string> = {
+  const player1: PlayerData<string, number> = {
     game: "CS:GO",
     hours: 300,
     server: "basic",
   };
 
-  const player2: PlayerData<number, string, string> = {
+  const player2: PlayerData<number, string> = {
     game: 2048,
     hours: "300 h.",
     server: "arcade",
   };
 
-  const player3: PlayerData<string, { total: number; inMenu: number }, string> = {
+  const player3: PlayerData<string, { total: number; inMenu: number }> = {
     game: "Chess",
     hours: {
       total: 500,
@@ -41,34 +41,6 @@ export default function genericsPractice() {
     circles: number;
     triangles: number;
     others: number;
-  }
-
-  function calculateAmountOfFigures(figure: IData[]): AmountOfFigures {
-    const result: AmountOfFigures = {
-      squares: 0,
-      circles: 0,
-      triangles: 0,
-      others: 0,
-    };
-
-    figure.forEach((item) => {
-      switch (item.name) {
-        case "rect":
-          result.squares += 1;
-          break;
-        case "circle":
-          result.circles += 1;
-          break;
-        case "triangle":
-          result.triangles += 1;
-          break;
-        default:
-          result.others += 1;
-          break;
-      }
-    });
-
-    return result;
   }
 
   type TName = "rect" | "circle" | "triangle" | "line";
@@ -111,6 +83,35 @@ export default function genericsPractice() {
       name: "triangle",
     },
   ];
+
+  function calculateAmountOfFigures(figure: IData[]): AmountOfFigures {
+    const result: AmountOfFigures = {
+      squares: 0,
+      circles: 0,
+      triangles: 0,
+      others: 0,
+    };
+
+    figure.forEach((item) => {
+      switch (item.name) {
+        case "rect":
+          result.squares += 1;
+          break;
+        case "circle":
+          result.circles += 1;
+          break;
+        case "triangle":
+          result.triangles += 1;
+          break;
+        default:
+          result.others += 1;
+          break;
+      }
+    });
+
+    return result;
+  }
+
 
   console.log(calculateAmountOfFigures(data));
 }
