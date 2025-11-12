@@ -6,9 +6,11 @@ import drinksFunc from "./modules/41.drinks";
 import petRobot from "./modules/41.petRobot";
 import weatherCheck from "./modules/41.weatherCheck";
 import genericsPractice from "./modules/49.genericsPractice";
+import keyOfFunc from "./modules/53.keyof";
 
 
-genericsPractice();
+keyOfFunc();
+// genericsPractice();
 // weatherCheck();
 // petRobot();
 // drinksFunc();
