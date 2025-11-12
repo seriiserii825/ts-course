@@ -7,9 +7,11 @@ import petRobot from "./modules/41.petRobot";
 import weatherCheck from "./modules/41.weatherCheck";
 import genericsPractice from "./modules/49.genericsPractice";
 import keyOfFunc from "./modules/53.keyof";
+import typeOfFunc from "./modules/54.typeof";
 
 
-keyOfFunc();
+typeOfFunc();
+// keyOfFunc();
 // genericsPractice();
 // weatherCheck();
 // petRobot();
