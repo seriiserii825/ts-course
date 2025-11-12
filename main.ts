@@ -10,9 +10,10 @@ import keyOfFunc from "./modules/53.keyof";
 import typeOfFunc from "./modules/54.typeof";
 import accessIndexType from "./modules/55.accessIndexType";
 import phoneFilter from "./modules/56.phoneFilter";
+import practice561 from "./modules/56.practice1";
 
-phoneFilter();
-
+practice561();
+// phoneFilter();
 // accessIndexType();
 // typeOfFunc();
 // keyOfFunc();

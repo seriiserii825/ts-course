@@ -18,12 +18,16 @@ export default function accessIndexType() {
 
   // Using Access Index Type to create a new type based on an existing type
   type TDebts = TCompany["debts"];
+  // Creating a type that represents the debts property of TCompany using a variable
   type TDebtsType = TCompany[typeof debts];
 
+  // Creating a type that represents the owner property inside the management object
   type TCOmpanyOwnerTGype = TCompany["management"]["owner"];
 
+  // Creating a type that represents all possible keys of the departments object
   type TCmpanyDepartment = keyof TCompany["departments"];
 
+  // Creating a type that represents all possible value types of TCompany
   type TCompanyKeysType = TCompany[keyof TCompany]
 
   const company: TCompany = {
