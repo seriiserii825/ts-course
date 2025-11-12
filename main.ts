@@ -13,9 +13,15 @@ import phoneFilter from "./modules/56.phoneFilter";
 import practice561 from "./modules/56.practice1";
 import practice563 from "./modules/56.practice3";
 import practice564 from "./modules/56.practice4";
+import conditionalType from "./modules/57.conditional-type";
 import practice562 from "./modules/57.practice2";
+import mappedTypes from "./modules/58.mappedTypes";
+import practice581 from "./modules/58.practice581";
 
-practice564();
+practice581()
+// mappedTypes();
+// conditionalType();
+// practice564();
 // practice563();
 // practice562();
 // practice561();
