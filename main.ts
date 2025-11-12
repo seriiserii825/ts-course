@@ -8,9 +8,11 @@ import weatherCheck from "./modules/41.weatherCheck";
 import genericsPractice from "./modules/49.genericsPractice";
 import keyOfFunc from "./modules/53.keyof";
 import typeOfFunc from "./modules/54.typeof";
+import accessIndexType from "./modules/55.accessIndexType";
 
 
-typeOfFunc();
+accessIndexType();
+// typeOfFunc();
 // keyOfFunc();
 // genericsPractice();
 // weatherCheck();
