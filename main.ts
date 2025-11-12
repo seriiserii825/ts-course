@@ -9,9 +9,11 @@ import genericsPractice from "./modules/49.genericsPractice";
 import keyOfFunc from "./modules/53.keyof";
 import typeOfFunc from "./modules/54.typeof";
 import accessIndexType from "./modules/55.accessIndexType";
+import phoneFilter from "./modules/56.phoneFilter";
 
+phoneFilter();
 
-accessIndexType();
+// accessIndexType();
 // typeOfFunc();
 // keyOfFunc();
 // genericsPractice();
