@@ -11,8 +11,14 @@ import typeOfFunc from "./modules/54.typeof";
 import accessIndexType from "./modules/55.accessIndexType";
 import phoneFilter from "./modules/56.phoneFilter";
 import practice561 from "./modules/56.practice1";
+import practice563 from "./modules/56.practice3";
+import practice564 from "./modules/56.practice4";
+import practice562 from "./modules/57.practice2";
 
-practice561();
+practice564();
+// practice563();
+// practice562();
+// practice561();
 // phoneFilter();
 // accessIndexType();
 // typeOfFunc();
