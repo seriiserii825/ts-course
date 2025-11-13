@@ -14,13 +14,12 @@ import practice561 from "./modules/56.practice1";
 import practice563 from "./modules/56.practice3";
 import practice564 from "./modules/56.practice4";
 import conditionalType from "./modules/57.conditional-type";
-import practice562 from "./modules/57.practice2";
 import mappedTypes from "./modules/58.mappedTypes";
 import practice581 from "./modules/58.practice581";
 import practice587 from "./modules/58.practice587";
-import unionTypes from "./modules/59.unionTypes";
+import utilityTypes from "./modules/59.utilityTypes";
 
-unionTypes()
+utilityTypes()
 // practice587();
 // practice581()
 // mappedTypes();
