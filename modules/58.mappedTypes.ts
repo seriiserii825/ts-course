@@ -20,17 +20,14 @@ export default function mappedTypes() {
     [K in keyof Languages]: string;
   };
 
-  const original_langs: Languages = {
-    ru: "ru",
-    en: "en",
-    de: "de",
+  type Class = {
+    name: string;
+    startsAt: string;
+    duration: number;
   };
 
-  const myLangs: MyLanguages = {
-    ru: "Russian",
-    en: "English",
-    de: "German",
-  };
-  console.log(original_langs, "original_langs");
-  console.log(myLangs, "myLangs");
+  //rename property
+  type FutureClasses = Required<{
+    [K in keyof Class as K extends "startsAt" ?  "willStartsAt" : K]: Class[K];
+  }>;
 }
