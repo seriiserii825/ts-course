@@ -18,8 +18,10 @@ import practice562 from "./modules/57.practice2";
 import mappedTypes from "./modules/58.mappedTypes";
 import practice581 from "./modules/58.practice581";
 import practice587 from "./modules/58.practice587";
+import unionTypes from "./modules/59.unionTypes";
 
-practice587();
+unionTypes()
+// practice587();
 // practice581()
 // mappedTypes();
 // conditionalType();
